@@ -82,7 +82,13 @@
                                     <li class="btn-cta"><a href="{{ route('login') }}"><span>Sign in</span></a></li>
                                 @endguest
                                 @auth
-                                    <li class="btn-cta"><a href="{{ route('login') }}"><span>Ahmed</span></a></li>
+								<li class="has-dropdown">
+									<a href="#">{{ auth()->user()->name }} <span class="caret"></span></a>
+									<ul class="dropdown">
+										<li><a href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('nav-form-logout').submit()">Logout</a></li>
+                                        <form action="{{ route('logout') }}" id="nav-form-logout" method="POST" class="d-none">@csrf</form>
+									</ul>
+								</li>
                                 @endauth
 							</ul>
 						</div>
