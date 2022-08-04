@@ -19,7 +19,7 @@ class ImageFactory extends Factory
         return [
             'name' => $this->faker->word(),
             'extension' => 'png',
-            'path' => '/public/images/' . $this->faker->word() . 'png',
+            'path' => $this->faker->imageUrl(640,480)
         ];
     }
 }

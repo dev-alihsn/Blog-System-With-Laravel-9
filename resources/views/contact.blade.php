@@ -31,29 +31,30 @@
                 <h2>Message Us</h2>
             </div>
             <div class="col-md-6">
-                <form action="#">
+                <form action="{{route('contact.store')}}" method="POST">
+                    @csrf
                     <div class="row form-group">
                         <div class="col-md-6">
                             <!-- <label for="fname">First Name</label> -->
-                            <input type="text" id="fname" class="form-control" placeholder="Your firstname">
+                            <x-blog.form.input name="fname" placeholder="Your first name"/>
                         </div>
                         <div class="col-md-6">
                             <!-- <label for="lname">Last Name</label> -->
-                            <input type="text" id="lname" class="form-control" placeholder="Your lastname">
+                            <x-blog.form.input name="lname" placeholder="Your lastname"/>
                         </div>
                     </div>
 
                     <div class="row form-group">
                         <div class="col-md-12">
                             <!-- <label for="email">Email</label> -->
-                            <input type="text" id="email" class="form-control" placeholder="Your email address">
+                            <x-blog.form.input type="email" name="email" placeholder="Your email address" />
                         </div>
                     </div>
 
                     <div class="row form-group">
                         <div class="col-md-12">
                             <!-- <label for="subject">Subject</label> -->
-                            <input type="text" id="subject" class="form-control" placeholder="Your subject of this message">
+                            <x-blog.form.input name="subject" placeholder="Your subject of this message" />
                         </div>
                     </div>
 
