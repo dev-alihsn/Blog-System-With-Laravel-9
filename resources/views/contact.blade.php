@@ -31,6 +31,7 @@
                 <h2>Message Us</h2>
             </div>
             <div class="col-md-6">
+                <x-blog.message status="success" />
                 <form action="{{route('contact.store')}}" method="POST">
                     @csrf
                     <div class="row form-group">
@@ -61,7 +62,7 @@
                     <div class="row form-group">
                         <div class="col-md-12">
                             <!-- <label for="message">Message</label> -->
-                            <textarea name="message" id="message" cols="30" rows="10" class="form-control" placeholder="Say something about us"></textarea>
+                            <x-blog.form.textarea name="message" placeholder="Say something about us" />
                         </div>
                     </div>
                     <div class="form-group">
