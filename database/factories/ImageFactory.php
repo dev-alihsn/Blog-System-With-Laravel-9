@@ -19,7 +19,7 @@ class ImageFactory extends Factory
         return [
             'name' => $this->faker->word(),
             'extension' => 'png',
-            'path' => $this->faker->imageUrl(640,480)
+            'path' => 'https://picsum.photos/400/400'
         ];
     }
 }

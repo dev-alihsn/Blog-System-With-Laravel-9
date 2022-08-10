@@ -51,7 +51,7 @@
                 <div class="row animate-box">
                     <div class="col-md-12">
                         <h2 class="colorlib-heading-2">Say something</h2>
-                        <x-blog.message :status="'success'"/>
+                        <x-blog.message status="success"/>
                         @if(auth()->check())
                         <form action="{{route('posts.add_comment',$post)}}" method="POST">
                             @csrf

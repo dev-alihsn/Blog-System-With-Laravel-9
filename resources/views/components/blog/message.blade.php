@@ -1,11 +1,7 @@
 @props(['status'])
 
-@if(session()->has($status) && session($status) == 'success')
-<div class="alert alert-success">
-    {{session($status)}}
-</div>
-@elseif(session()->has($status))
-<div class="alert alert-danger">
+@if(session()->has($status))
+<div class="alert alert-{{$status == 'success' ? 'success' : 'danger'}} global-message">
     {{session($status)}}
 </div>
 @endif
