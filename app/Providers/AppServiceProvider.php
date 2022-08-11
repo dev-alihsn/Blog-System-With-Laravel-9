@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Category;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Pagination\Paginator;
 
@@ -25,5 +26,8 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Paginator::useBootstrapFour();
+
+        $categories = Category::withcount('posts')->orderBy('posts_count','DESC')->take(10)->get();
+        view()->share('navbar_categories',$categories);
     }
 }
