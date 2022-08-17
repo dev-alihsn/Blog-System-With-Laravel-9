@@ -19,7 +19,7 @@ class ImageFactory extends Factory
         return [
             'name' => $this->faker->word(),
             'extension' => 'png',
-            'path' => 'https://picsum.photos/400/400'
+            'path' => 'http://127.0.0.1:8000/images/no-img.jpg',
         ];
     }
 }

@@ -7,7 +7,10 @@ use App\Http\Controllers\AboutController;
 use App\Http\Controllers\PostsController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\AdminConrollers\DashboardController;
+use App\Http\Controllers\AdminControllers\DashboardController;
+use App\Http\Controllers\AdminControllers\AdminPostsController;
+use App\Http\Controllers\AdminControllers\TinymceController;
+use GuzzleHttp\Psr7\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,4 +47,6 @@ require __DIR__.'/auth.php';
 // Admin dashboard routes
 Route::prefix('admin')->name('admin.')->middleware(['auth','IsAdmin'])->group(function(){
     Route::get('/',[DashboardController::class,'index'])->name('index');
+    Route::post('upload_tinymce_image',[TinymceController::class,'upload_tinymce_image'])->name('upload_tinymce_image');
+    Route::resource('posts',AdminPostsController::class);
 });
