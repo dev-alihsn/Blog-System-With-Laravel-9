@@ -48,47 +48,37 @@
 							<table class="table mb-0">
 								<thead class="table-light">
 									<tr>
-										<th>Post#</th>
-										<th>Post Title</th>
+										<th>Category#</th>
+										<th>Category Name</th>
 										<!--<th>Post Excerpt</th>-->
-										<th>category</th>
-										<th>Created At</th>
-										<th>Status</th>
-                                        <td>Views</td>
-										<th>Actions</th>
+										<th>Category Author</th>
+										<th>Category Posts Count</th>
+                                        <th>Created At</th>
+                                        <th>Realted Posts</th>
+                                        <td>Actions</td>
 									</tr>
 								</thead>
 								<tbody>
-                                    @foreach($posts as $post)
+                                    @foreach($categories as $category)
 									<tr>
-										<td>
-											<div class="d-flex align-items-center">
-												<div>
-													<input class="form-check-input me-3" type="checkbox" value="" aria-label="...">
-												</div>
-												<div class="ms-2">
-													<h6 class="mb-0 font-14">#{{$post->id}}</h6>
-												</div>
-											</div>
-										</td>
-										<td>{{$post->title}}</td>
-                                        <!--<td>{{$post->excerpt}}</td>-->
-										<td>{{$post->category ? $post->category->name : 'no categories'}}</td>
-                                        <td>{{$post->created_at->diffForHumans()}}</td>
-                                        <td><div class="badge rounded-pill @if($post->status == 'published') text-success bg-light-success @elseif($post->status == 'draft')text-warning bg-light-warning @else text-danger bg-light-danger @endif p-2 text-uppercase px-3"><i class='bx bxs-circle me-1'></i>{{$post->status}}</div></td>
-										<td>{{$post->views}}</td>
+                                        <td>{{$category->id}}</td>
+                                        <td>{{$category->name}}</td>
+                                        <td>{{$category->user->name}}</td>
+                                        <td>{{$category->posts_count}}</td>
+                                        <td>{{$category->created_at->diffForHumans()}}</td>
+                                        <td><a href="{{route('admin.categories.show',$category)}}" class="btn btn-primary btn-sm radius-30 px-4">Realted Posts</a></td>
 										<td>
 											<div class="d-flex order-actions">
-												<a href="{{route('admin.posts.edit',$post)}}" class=""><i class='bx bxs-edit'></i></a>
-                                                <form action="{{route('admin.posts.destroy',$post)}}" method="POST" id="delete_form_{{$post->id}}">@csrf @method('DELETE')</form>
-												<a href="#" onclick="this.preventDefualt;document.getElementById('delete_form_{{$post->id}}').submit()" class="ms-3"><i class='bx bxs-trash'></i></a>
+												<a href="{{route('admin.categories.edit',$category)}}" class=""><i class='bx bxs-edit'></i></a>
+                                                <form action="{{route('admin.categories.destroy',$category)}}" method="POST" id="delete_form_{{$category->id}}">@csrf @method('DELETE')</form>
+												<a href="#" onclick="this.preventDefualt;document.getElementById('delete_form_{{$category->id}}').submit()" class="ms-3"><i class='bx bxs-trash'></i></a>
 											</div>
 										</td>
 									</tr>
                                     @endforeach
 								</tbody>
 							</table>
-                            {{$posts->links()}}
+                            {{$categories->links()}}
 						</div>
 					</div>
 				</div>

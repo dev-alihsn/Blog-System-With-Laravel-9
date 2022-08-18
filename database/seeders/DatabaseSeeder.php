@@ -33,7 +33,19 @@ class DatabaseSeeder extends Seeder
         foreach ($users as $user){
             $user->image()->save(Image::factory()->make());
         }
+        \App\Models\User::factory(1)->create([
+            'id' => 11,
+            'name' => 'admin',
+            'email' => 'admin@admin.com',
+            'password' => 'admin',
+            'role_id' => 2
+        ]);
         \App\Models\Category::factory(10)->create();
+        \App\Models\Category::factory(1)->create([
+            'name' => 'uncategorized',
+            'slug' => 'uncategorized',
+            'user_id' => 11
+        ]);
         $posts = \App\Models\Post::factory(100)->create();
         \App\Models\Comment::factory(300)->create();
         \App\Models\Tag::factory(93)->create();

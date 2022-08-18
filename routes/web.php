@@ -1,16 +1,17 @@
 <?php
 
 use App\Models\Category;
+use GuzzleHttp\Psr7\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\PostsController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\AdminControllers\TinymceController;
 use App\Http\Controllers\AdminControllers\DashboardController;
 use App\Http\Controllers\AdminControllers\AdminPostsController;
-use App\Http\Controllers\AdminControllers\TinymceController;
-use GuzzleHttp\Psr7\Request;
+use App\Http\Controllers\AdminControllers\AdminCategoriesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,4 +50,5 @@ Route::prefix('admin')->name('admin.')->middleware(['auth','IsAdmin'])->group(fu
     Route::get('/',[DashboardController::class,'index'])->name('index');
     Route::post('upload_tinymce_image',[TinymceController::class,'upload_tinymce_image'])->name('upload_tinymce_image');
     Route::resource('posts',AdminPostsController::class);
+    Route::resource('categories',AdminCategoriesController::class);
 });
