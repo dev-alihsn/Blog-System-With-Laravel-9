@@ -86,6 +86,7 @@
 								<li class="has-dropdown">
 									<a href="#">{{ auth()->user()->name }} <span class="caret"></span></a>
 									<ul class="dropdown">
+										<li><a href="{{route('admin.index')}}">Dashboard</a></li>
 										<li><a href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('nav-form-logout').submit()">Logout</a></li>
                                         <form action="{{ route('logout') }}" id="nav-form-logout" method="POST" class="d-none">@csrf</form>
 									</ul>

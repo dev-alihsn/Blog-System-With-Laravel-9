@@ -12,6 +12,7 @@ use App\Http\Controllers\AdminControllers\TinymceController;
 use App\Http\Controllers\AdminControllers\AdminTagsController;
 use App\Http\Controllers\AdminControllers\DashboardController;
 use App\Http\Controllers\AdminControllers\AdminPostsController;
+use App\Http\Controllers\AdminControllers\AdminCommentsController;
 use App\Http\Controllers\AdminControllers\AdminCategoriesController;
 
 /*
@@ -55,4 +56,5 @@ Route::prefix('admin')->name('admin.')->middleware(['auth','IsAdmin'])->group(fu
     Route::get('/tags',[AdminTagsController::class,'index'])->name('tags.index');
     Route::delete('/tags/{tag}',[AdminTagsController::class,'destroy'])->name('tags.destroy');
     Route::get('/tags/{tag}',[AdminTagsController::class,'show'])->name('tags.show');
+    Route::resource('comments',AdminCommentsController::class);
 });
