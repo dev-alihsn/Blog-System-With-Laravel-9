@@ -19,7 +19,7 @@ class ImageFactory extends Factory
         return [
             'name' => $this->faker->word(),
             'extension' => 'png',
-            'path' => 'http://127.0.0.1:8000/images/no-img.jpg',
+            'path' => 'storage/images/' . rand(1,10) . '.jpg',
         ];
     }
 }

@@ -2,6 +2,7 @@
 	@extends("admin_dashboard.layouts.app")
 
 	@section("style")
+    <link href="{{asset('admin_dashboard_assets')}}/plugins/input-tags/css/tagsinput.css" rel="stylesheet" />
     <link href="{{asset('admin_dashboard_assets')}}/plugins/select2/css/select2.min.css" rel="stylesheet" />
 	<link href="{{asset('admin_dashboard_assets')}}/plugins/select2/css/select2-bootstrap4.css" rel="stylesheet" />
     <script src="https://cdn.tiny.cloud/1/e33fttcqjuoso844fwsu095r2ve5cuvrvum6olzjf1pseqx6/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
@@ -89,11 +90,7 @@
                                             </div>
                                             <div class="mb-3">
                                                 <label class="form-label">Post Tags</label>
-                                                <select class="multiple-select" data-placeholder="Choose anything" multiple="multiple">
-                                                    @foreach($tags as $id => $tag)
-                                                    <option value="{{$id}}" >{{$tag}}</option>
-                                                    @endforeach
-                                                </select>
+                                                <input type="text" class="form-control" data-role="tagsinput" name="tags" value="{{old('tags',$tags)}}">
                                             </div>
                                         </div>
                                     </div>
@@ -115,24 +112,24 @@
 							  </div>
                               <div class="mb-3">
 								<label for="inputProductDescription" class="form-label">Post content</label>
-								<textarea id="post_content" class="form-control" id="inputProductDescription" rows="3" name="body" >{{str_replace('../..//','/',$post->body)}}</textarea>
+								<textarea id="post_content" class="form-control" id="inputProductDescription" rows="3" name="body" >{{str_replace('../../','/',$post->body)}}</textarea>
                                 @error('body')
                                     <small class="error text-danger">{{$message}}</small>
                                 @enderror
 							  </div>
                               <div class="mb-3">
                                 <input type="submit" class="btn btn-primary" value="Update Post" />
-                                <form action="{{route('admin.posts.destroy',$post)}}" method="POST"> 
-                                    @csrf
-                                    @method('DELETE')
-                                    <input type="submit" class="btn btn-danger" value="Delete Post" />
-                                </form>
+                                <a href="#" class="btn btn-danger" onclick="this.preventDefault;document.getElementById('delete_form_{{$post->id}}').submit()">Delete Post</a>
                               </div>
                             </div>
 						   </div>
 						  </div>
 					   </div><!--end row-->
                       </form>
+                      <form action="{{route('admin.posts.destroy',$post)}}" method="POST" id="delete_form_{{$post->id}}"> 
+                        @csrf
+                        @method('DELETE')
+                    </form>
 					</div>
                 </div>
 			</div>
@@ -201,4 +198,5 @@
                 $('.global-message').fadeOut();
             }, 4000);
           </script>
+          	<script src="{{asset('admin_dashboard_assets')}}/plugins/input-tags/js/tagsinput.js"></script>
 	@endsection

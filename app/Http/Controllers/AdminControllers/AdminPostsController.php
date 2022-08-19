@@ -68,6 +68,17 @@ class AdminPostsController extends Controller
             ]);
         }
 
+        $tags = explode(',',$request->input('tags'));
+        $tags_ids = [];
+        foreach($tags as $tag){
+            $tag_ob = Tag::create(['name' => $tag]);
+            $tags_ids[] = $tag_ob->id;
+        }
+
+        if(count($tags_ids) > 0){
+            $post->tags()->sync($tags_ids);
+        }
+
         return redirect(route('admin.posts.create'))->With('success','The Post has created successfuly');
     }
 
@@ -88,12 +99,20 @@ class AdminPostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Post $post)
     {
+        $tags = '';
+        foreach($post->tags as $key => $tag){
+            if($key === count($post->tags) - 1){
+                $tags .= $tag->name;
+            }else {
+                $tags .= $tag->name . ', ';
+            }
+        }
         return view('admin_dashboard.posts.update',[
-            'post' => Post::find($id),
+            'post' => Post::find($post->id),
             'categories' => Category::pluck('name','id'),
-            'tags' => Tag::pluck('name','id'),
+            'tags' => $tags,
         ]);
     }
 
@@ -106,10 +125,10 @@ class AdminPostsController extends Controller
      */
     public function update(Request $request,Post $post)
     {
+        $this->rules['thumbnail'] = 'nullable|mimes:jpeg,png,jpg|dimensions:max_width=300,min_height=227';
         $validated = $request->validate($this->rules);
         $validated['user_id'] = auth()->user()->id;
         $validated['category_id'] = $request->category;
-        $validated['thumbnail'] = 'nullable|mimes:jpeg,png,jpg|dimensions:max_width=300,min_height=227';
         $post->update($validated);
 
         if($request->has('thumbnail')){
@@ -122,6 +141,26 @@ class AdminPostsController extends Controller
                 'extension' => $file_extension,
                 'path' => $path
             ]);
+        }
+
+        $tags = explode(',',$request->input('tags'));
+        $tags_ids = [];
+        foreach($tags as $tag){
+            $tag_exists = $post->tags()->where('name',$tag)->first();
+            if($tag_exists === null){
+                $tag_g = Tag::where('name',$tag)->first();
+                if($tag_g === null){
+                    $tag_ob = Tag::create(['name' => $tag]);
+                    $tags_ids[] = $tag_ob->id;
+                }else {
+                    $tags_ids[] = $tag_g->id;
+                }
+            }else {$tags_ids[] = $post->tags()->where('name',$tag)->first()->id;}
+            
+        }
+
+        if(count($tags_ids) > 0){
+            $post->tags()->sync($tags_ids);
         }
 
         return redirect(route('admin.posts.edit',$post))->With('success','The Post has updated successfuly');

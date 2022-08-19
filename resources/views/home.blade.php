@@ -7,7 +7,7 @@
 					<div class="col-md-8">
                         @forelse($posts as $post)
                          <div class="block-21 d-flex animate-box">
-                            <a href="{{ route('posts.show',$post) }}" class="blog-img" style="background-image: url({{$post->image->path}});"></a>
+                            <a href="{{ route('posts.show',$post) }}" class="blog-img" style="background-image: url({{asset($post->image->path)}});"></a>
                             <div class="text">
                                <h3 class="heading"><a href="{{ route('posts.show',$post) }}">{{$post->title}}</a></h3>
                                <p>{{$post->excerpt}}</p>

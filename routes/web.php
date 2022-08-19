@@ -9,6 +9,7 @@ use App\Http\Controllers\PostsController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\AdminControllers\TinymceController;
+use App\Http\Controllers\AdminControllers\AdminTagsController;
 use App\Http\Controllers\AdminControllers\DashboardController;
 use App\Http\Controllers\AdminControllers\AdminPostsController;
 use App\Http\Controllers\AdminControllers\AdminCategoriesController;
@@ -51,4 +52,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth','IsAdmin'])->group(fu
     Route::post('upload_tinymce_image',[TinymceController::class,'upload_tinymce_image'])->name('upload_tinymce_image');
     Route::resource('posts',AdminPostsController::class);
     Route::resource('categories',AdminCategoriesController::class);
+    Route::get('/tags',[AdminTagsController::class,'index'])->name('tags.index');
+    Route::delete('/tags/{tag}',[AdminTagsController::class,'destroy'])->name('tags.destroy');
+    Route::get('/tags/{tag}',[AdminTagsController::class,'show'])->name('tags.show');
 });

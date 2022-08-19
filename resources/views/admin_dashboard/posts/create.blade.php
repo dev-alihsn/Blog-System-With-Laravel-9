@@ -2,6 +2,7 @@
 	@extends("admin_dashboard.layouts.app")
 
 	@section("style")
+    <link href="{{asset('admin_dashboard_assets')}}/plugins/input-tags/css/tagsinput.css" rel="stylesheet" />
     <link href="{{asset('admin_dashboard_assets')}}/plugins/select2/css/select2.min.css" rel="stylesheet" />
 	<link href="{{asset('admin_dashboard_assets')}}/plugins/select2/css/select2-bootstrap4.css" rel="stylesheet" />
     <script src="https://cdn.tiny.cloud/1/e33fttcqjuoso844fwsu095r2ve5cuvrvum6olzjf1pseqx6/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
@@ -88,11 +89,7 @@
                                             </div>
                                             <div class="mb-3">
                                                 <label class="form-label">Post Tags</label>
-                                                <select class="multiple-select" data-placeholder="Choose anything" multiple="multiple">
-                                                    @foreach($tags as $id => $tag)
-                                                    <option value="{{$id}}">{{$tag}}</option>
-                                                    @endforeach
-                                                </select>
+                                                <input type="text" class="form-control" data-role="tagsinput" name="tags" value="{{old('tags')}}">
                                             </div>
                                         </div>
                                     </div>
@@ -190,4 +187,5 @@
                 $('.global-message').fadeOut();
             }, 4000);
           </script>
+          	<script src="{{asset('admin_dashboard_assets')}}/plugins/input-tags/js/tagsinput.js"></script>
 	@endsection
