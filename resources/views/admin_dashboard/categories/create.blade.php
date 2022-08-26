@@ -62,7 +62,7 @@
                                 @enderror
 							  </div>
                               <div class="mb-3">
-                                <input type="submit" class="btn btn-primary" value="Add Category" />
+                                <input type="submit" class="btn btn-primary" value="Add Role" />
                               </div>
                             </div>
 						   </div>

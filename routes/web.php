@@ -14,6 +14,7 @@ use App\Http\Controllers\AdminControllers\DashboardController;
 use App\Http\Controllers\AdminControllers\AdminPostsController;
 use App\Http\Controllers\AdminControllers\AdminCommentsController;
 use App\Http\Controllers\AdminControllers\AdminCategoriesController;
+use App\Http\Controllers\AdminControllers\AdminRolesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,7 +49,7 @@ require __DIR__.'/auth.php';
 
 
 // Admin dashboard routes
-Route::prefix('admin')->name('admin.')->middleware(['auth','IsAdmin'])->group(function(){
+Route::prefix('admin')->name('admin.')->middleware(['auth','IsAdmin','check_permissions'])->group(function(){
     Route::get('/',[DashboardController::class,'index'])->name('index');
     Route::post('upload_tinymce_image',[TinymceController::class,'upload_tinymce_image'])->name('upload_tinymce_image');
     Route::resource('posts',AdminPostsController::class);
@@ -56,5 +57,6 @@ Route::prefix('admin')->name('admin.')->middleware(['auth','IsAdmin'])->group(fu
     Route::get('/tags',[AdminTagsController::class,'index'])->name('tags.index');
     Route::delete('/tags/{tag}',[AdminTagsController::class,'destroy'])->name('tags.destroy');
     Route::get('/tags/{tag}',[AdminTagsController::class,'show'])->name('tags.show');
-    Route::resource('comments',AdminCommentsController::class);
+    Route::resource('comments',AdminCommentsController::class)->except('show');
+    Route::resource('roles',AdminRolesController::class)->except('show');
 });
