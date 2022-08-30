@@ -12,9 +12,10 @@ use App\Http\Controllers\AdminControllers\TinymceController;
 use App\Http\Controllers\AdminControllers\AdminTagsController;
 use App\Http\Controllers\AdminControllers\DashboardController;
 use App\Http\Controllers\AdminControllers\AdminPostsController;
+use App\Http\Controllers\AdminControllers\AdminRolesController;
+use App\Http\Controllers\AdminControllers\AdminUsersController;
 use App\Http\Controllers\AdminControllers\AdminCommentsController;
 use App\Http\Controllers\AdminControllers\AdminCategoriesController;
-use App\Http\Controllers\AdminControllers\AdminRolesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,7 +50,7 @@ require __DIR__.'/auth.php';
 
 
 // Admin dashboard routes
-Route::prefix('admin')->name('admin.')->middleware(['auth','IsAdmin','check_permissions'])->group(function(){
+Route::prefix('admin')->name('admin.')->middleware(['auth','check_permissions'])->group(function(){
     Route::get('/',[DashboardController::class,'index'])->name('index');
     Route::post('upload_tinymce_image',[TinymceController::class,'upload_tinymce_image'])->name('upload_tinymce_image');
     Route::resource('posts',AdminPostsController::class);
@@ -59,4 +60,5 @@ Route::prefix('admin')->name('admin.')->middleware(['auth','IsAdmin','check_perm
     Route::get('/tags/{tag}',[AdminTagsController::class,'show'])->name('tags.show');
     Route::resource('comments',AdminCommentsController::class)->except('show');
     Route::resource('roles',AdminRolesController::class)->except('show');
+    Route::resource('users',AdminUsersController::class);
 });

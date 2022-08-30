@@ -17,6 +17,9 @@ class CheckPermission
      */
     public function handle(Request $request, Closure $next)
     {
+        if(auth()->user()->role->name === 'admin')
+            return $next($request);
+            
         $user_permissions = auth()->user()->role->permissions->toArray();
         $route_name = $request->route()->getName();
         foreach($user_permissions as $permission){

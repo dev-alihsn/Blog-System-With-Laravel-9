@@ -6,6 +6,11 @@
             {{session('success')}}
         </div>
         @endif
+        @if(session()->has('error'))
+        <div class="alert alert-danger global-message">
+            {{session('error')}}
+        </div>
+        @endif
 		<!--start page wrapper -->
 		<div class="page-wrapper">
 			<div class="page-content">
@@ -17,7 +22,7 @@
 							<ol class="breadcrumb mb-0 p-0">
 								<li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
 								</li>
-								<li class="breadcrumb-item active" aria-current="page">categories</li>
+								<li class="breadcrumb-item active" aria-current="page">users</li>
 							</ol>
 						</nav>
 					</div>
@@ -48,37 +53,38 @@
 							<table class="table mb-0">
 								<thead class="table-light">
 									<tr>
-										<th>Category#</th>
-										<th>Category Name</th>
+										<th>User#</th>
+										<th>Image</th>
 										<!--<th>Post Excerpt</th>-->
-										<th>Category Author</th>
-										<th>Category Posts Count</th>
+										<th>Name</th>
+										<th>Email</th>
+                                        <th>Role</th>
                                         <th>Created At</th>
-                                        <th>Realted Posts</th>
                                         <td>Actions</td>
 									</tr>
 								</thead>
 								<tbody>
-                                    @foreach($categories as $category)
+                                    @foreach($users as $user)
 									<tr>
-                                        <td>{{$category->id}}</td>
-                                        <td>{{$category->name}}</td>
-                                        <td>{{$category->user->name}}</td>
-                                        <td>{{$category->posts_count}}</td>
-                                        <td>{{$category->created_at->diffForHumans()}}</td>
-                                        <td><a href="{{route('admin.categories.show',$category)}}" class="btn btn-primary btn-sm radius-30 px-4">Realted Posts</a></td>
+                                        <td>{{$user->id}}</td>
+                                        <td><img src="{{$user->image ? asset($user->image->path) : 'https://image.shutterstock.com/image-vector/blank-avatar-photo-place-holder-600w-1095249842.jpg'}}" width="50" alt=""></td>
+                                        <td>{{$user->name}}</td>
+                                        <td>{{$user->email}}</td>
+                                        <td>{{$user->role->name}}</td>
+                                        <td>{{$user->created_at->diffForHumans()}}</td>
+                                        <td><a href="{{route('admin.users.show',$user)}}" class="btn btn-primary btn-sm radius-30 px-4">Realted Posts</a></td>
 										<td>
 											<div class="d-flex order-actions">
-												<a href="{{route('admin.categories.edit',$category)}}" class=""><i class='bx bxs-edit'></i></a>
-                                                <form action="{{route('admin.categories.destroy',$category)}}" method="POST" id="delete_form_{{$category->id}}">@csrf @method('DELETE')</form>
-												<a href="#" onclick="this.preventDefualt;document.getElementById('delete_form_{{$category->id}}').submit()" class="ms-3"><i class='bx bxs-trash'></i></a>
+												<a href="{{route('admin.users.edit',$user)}}" class=""><i class='bx bxs-edit'></i></a>
+                                                <form action="{{route('admin.users.destroy',$user)}}" method="POST" id="delete_form_{{$user->id}}">@csrf @method('DELETE')</form>
+												<a href="#" onclick="this.preventDefualt;document.getElementById('delete_form_{{$user->id}}').submit()" class="ms-3"><i class='bx bxs-trash'></i></a>
 											</div>
 										</td>
 									</tr>
                                     @endforeach
 								</tbody>
 							</table>
-                            {{$categories->links()}}
+                            {{$users->links()}}
 						</div>
 					</div>
 				</div>
@@ -94,4 +100,3 @@
             }, 4000);
         </script>
         @endsection
-	
