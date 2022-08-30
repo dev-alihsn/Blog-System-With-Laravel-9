@@ -88,7 +88,7 @@
         let lname = $($this).parents("form").find('input[name="lname"]').val();
         let email = $($this).parents("form").find('input[name="email"]').val();
         let subject = $($this).parents("form").find('input[name="subject"]').val();
-        let message = $($this).parents("form").find('input[name="message"]').val();
+        let message = $($this).parents("form").find('name="message"').val();
         let csrf_token = $($this).parents("form").find('input[name="_token"]').val();
 
         let formData = new FormData();
