@@ -142,6 +142,10 @@ class AdminUsersController extends Controller
         if($user->id == auth()->user()->id)
             return redirect(route('admin.users.index'))->With('error','You can not delete yourself!');
 
+        foreach($user->posts as $post){
+            $post->update(['user_id' => auth()->user()->id]);
+        }
+        
         $user->delete();
         return redirect(route('admin.users.index'))->With('success','The user has deleted successfuly');
     }
